@@ -1,13 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-// Il Post deve contenere le seguenti proprietà:
-// title
-// slug (deve essere univoco)
-// image (non obbligatoria)
-// content
-// published (boolean)
-
 // implementate tutte le operazioni CRUD per il modello Post, ovvero:
 // Una funzione che consente di creare un Post.
 const createPost = (data, callback) => {
@@ -53,10 +46,58 @@ const deletePost = (slug) => {
         .catch(error => console.error(error));
 }
 
+// BONUS: Crea una funzione che restituisca solo i Post pubblicati.
+const readPublishedPosts = (callback) => {
+    prisma.post.findMany({
+        where: {
+            published: true
+        },
+        include: {
+            tags: {
+                select: {
+                    name: true
+                }
+            },
+            category: true,
+        }
+    })
+        .then(posts => callback(posts))
+        .catch(error => console.error(error));
+}
+
+// BONUS: Crea una funzione che restituisca solo i Post che contengono una determinata stringa nel contenuto.
+const readPostsByContent = (content, callback) => {
+    prisma.post.findMany({
+        where: {
+            content: {
+                contains: content
+            }
+        },
+        include: {
+            tags: {
+                select: {
+                    name: true
+                }
+            },
+            category: true,
+        }
+    })
+        .then(posts => {
+            if (posts.length === 0) {
+                console.log('Nessun post include la stringa inserita');
+            } else {
+                callback(posts);
+            }
+        })
+        .catch(error => console.error(error));
+}
+
 module.exports = {
     createPost,
     readPostBySlug,
     readAllPosts,
     updatePost,
-    deletePost
+    deletePost,
+    readPublishedPosts,
+    readPostsByContent
 }

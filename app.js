@@ -12,24 +12,25 @@ const { createPost,
     readPostBySlug,
     readAllPosts,
     updatePost,
-    deletePost
+    deletePost,
+    readPublishedPosts,
+    readPostsByContent
 } = require('./utils/crud-post.js');
 
 // Creazione post
 // createPost({
-//     title: 'Post di prova 5',
-//     slug: 'post-di-prova-5',
-//     image: 'https://photo/prova5',
-//     content: 'Contenuto del post di prova 5',
+//     title: 'Lasagne al forno',
+//     slug: 'lasagne-al-forno',
+//     image: 'https://photo/lasagne-al-forno',
+//     content: 'Un piatto ideale da gustare in famiglia',
 //     published: true,
 //     tags: {
 //         connect: [
-//             { id: 5 },
-//             { id: 6 }
+//             { id: 1 },
 //         ]
 //     },
 //     category: {
-//         connect: { id: 4 },
+//         connect: { id: 3 },
 //     }
 // }, newPost => console.log(newPost));
 
@@ -55,6 +56,12 @@ const { createPost,
 
 // ELiminazione di un post
 // deletePost('post-di-prova-3');
+
+// BONUS: funzione che restituisca solo i Post pubblicati
+// readPublishedPosts(posts => console.log(posts));
+
+// BONUS: funzione che restituisca solo i Post che contengono una determinata stringa nel contenuto.
+readPostsByContent('ideale', posts => console.log(posts));
 
 // Creazione categorie
 // createCategories(['Cucina', 'Sport', 'Tecnologia'], count => console.log(count));
