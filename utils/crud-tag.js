@@ -1,3 +1,6 @@
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
+
 const createTag = (data, callback) => {
     prisma.tag.create({
         data
