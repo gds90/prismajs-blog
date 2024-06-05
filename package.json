@@ -4,12 +4,16 @@
   "description": "Esercizio",
   "main": "index.js",
   "scripts": {
-    "migrate": "prisma migrate dev --name"
+    "migrate": "prisma migrate dev --name",
+    "dev": "node app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "prisma": "^5.15.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.15.0"
   }
 }
